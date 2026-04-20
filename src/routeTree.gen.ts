@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ParallelFetchingDashboardWaterfallRouteImport } from './routes/parallel-fetching/dashboard.waterfall'
+import { Route as ParallelFetchingDashboardSafeRouteImport } from './routes/parallel-fetching/dashboard.safe'
+import { Route as ParallelFetchingDashboardParallelRouteImport } from './routes/parallel-fetching/dashboard.parallel'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -22,31 +25,77 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ParallelFetchingDashboardWaterfallRoute =
+  ParallelFetchingDashboardWaterfallRouteImport.update({
+    id: '/parallel-fetching/dashboard/waterfall',
+    path: '/parallel-fetching/dashboard/waterfall',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ParallelFetchingDashboardSafeRoute =
+  ParallelFetchingDashboardSafeRouteImport.update({
+    id: '/parallel-fetching/dashboard/safe',
+    path: '/parallel-fetching/dashboard/safe',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ParallelFetchingDashboardParallelRoute =
+  ParallelFetchingDashboardParallelRouteImport.update({
+    id: '/parallel-fetching/dashboard/parallel',
+    path: '/parallel-fetching/dashboard/parallel',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
+  '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
+  '/parallel-fetching/dashboard/waterfall': typeof ParallelFetchingDashboardWaterfallRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
+  '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
+  '/parallel-fetching/dashboard/waterfall': typeof ParallelFetchingDashboardWaterfallRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/parallel-fetching/dashboard/parallel': typeof ParallelFetchingDashboardParallelRoute
+  '/parallel-fetching/dashboard/safe': typeof ParallelFetchingDashboardSafeRoute
+  '/parallel-fetching/dashboard/waterfall': typeof ParallelFetchingDashboardWaterfallRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/parallel-fetching/dashboard/parallel'
+    | '/parallel-fetching/dashboard/safe'
+    | '/parallel-fetching/dashboard/waterfall'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to:
+    | '/'
+    | '/about'
+    | '/parallel-fetching/dashboard/parallel'
+    | '/parallel-fetching/dashboard/safe'
+    | '/parallel-fetching/dashboard/waterfall'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/parallel-fetching/dashboard/parallel'
+    | '/parallel-fetching/dashboard/safe'
+    | '/parallel-fetching/dashboard/waterfall'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ParallelFetchingDashboardParallelRoute: typeof ParallelFetchingDashboardParallelRoute
+  ParallelFetchingDashboardSafeRoute: typeof ParallelFetchingDashboardSafeRoute
+  ParallelFetchingDashboardWaterfallRoute: typeof ParallelFetchingDashboardWaterfallRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +114,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/parallel-fetching/dashboard/waterfall': {
+      id: '/parallel-fetching/dashboard/waterfall'
+      path: '/parallel-fetching/dashboard/waterfall'
+      fullPath: '/parallel-fetching/dashboard/waterfall'
+      preLoaderRoute: typeof ParallelFetchingDashboardWaterfallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parallel-fetching/dashboard/safe': {
+      id: '/parallel-fetching/dashboard/safe'
+      path: '/parallel-fetching/dashboard/safe'
+      fullPath: '/parallel-fetching/dashboard/safe'
+      preLoaderRoute: typeof ParallelFetchingDashboardSafeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parallel-fetching/dashboard/parallel': {
+      id: '/parallel-fetching/dashboard/parallel'
+      path: '/parallel-fetching/dashboard/parallel'
+      fullPath: '/parallel-fetching/dashboard/parallel'
+      preLoaderRoute: typeof ParallelFetchingDashboardParallelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ParallelFetchingDashboardParallelRoute:
+    ParallelFetchingDashboardParallelRoute,
+  ParallelFetchingDashboardSafeRoute: ParallelFetchingDashboardSafeRoute,
+  ParallelFetchingDashboardWaterfallRoute:
+    ParallelFetchingDashboardWaterfallRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
