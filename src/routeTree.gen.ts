@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PokemonRouteImport } from './routes/pokemon'
+import { Route as FavouriteRouteImport } from './routes/favourite'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FallbacksIndexRouteImport } from './routes/fallbacks/index'
@@ -21,6 +23,16 @@ import { Route as ParallelFetchingDashboardWaterfallRouteImport } from './routes
 import { Route as ParallelFetchingDashboardSafeRouteImport } from './routes/parallel-fetching/dashboard.safe'
 import { Route as ParallelFetchingDashboardParallelRouteImport } from './routes/parallel-fetching/dashboard.parallel'
 
+const PokemonRoute = PokemonRouteImport.update({
+  id: '/pokemon',
+  path: '/pokemon',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavouriteRoute = FavouriteRouteImport.update({
+  id: '/favourite',
+  path: '/favourite',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -83,6 +95,8 @@ const ParallelFetchingDashboardParallelRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/favourite': typeof FavouriteRoute
+  '/pokemon': typeof PokemonRoute
   '/fallbacks/analytics': typeof FallbacksAnalyticsRoute
   '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
   '/streaming-ssr/product': typeof StreamingSsrProductRoute
@@ -96,6 +110,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/favourite': typeof FavouriteRoute
+  '/pokemon': typeof PokemonRoute
   '/fallbacks/analytics': typeof FallbacksAnalyticsRoute
   '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
   '/streaming-ssr/product': typeof StreamingSsrProductRoute
@@ -110,6 +126,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/favourite': typeof FavouriteRoute
+  '/pokemon': typeof PokemonRoute
   '/fallbacks/analytics': typeof FallbacksAnalyticsRoute
   '/loader-deps/employees': typeof LoaderDepsEmployeesRoute
   '/streaming-ssr/product': typeof StreamingSsrProductRoute
@@ -125,6 +143,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/favourite'
+    | '/pokemon'
     | '/fallbacks/analytics'
     | '/loader-deps/employees'
     | '/streaming-ssr/product'
@@ -138,6 +158,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/favourite'
+    | '/pokemon'
     | '/fallbacks/analytics'
     | '/loader-deps/employees'
     | '/streaming-ssr/product'
@@ -151,6 +173,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/favourite'
+    | '/pokemon'
     | '/fallbacks/analytics'
     | '/loader-deps/employees'
     | '/streaming-ssr/product'
@@ -165,6 +189,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  FavouriteRoute: typeof FavouriteRoute
+  PokemonRoute: typeof PokemonRoute
   FallbacksAnalyticsRoute: typeof FallbacksAnalyticsRoute
   LoaderDepsEmployeesRoute: typeof LoaderDepsEmployeesRoute
   StreamingSsrProductRoute: typeof StreamingSsrProductRoute
@@ -178,6 +204,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pokemon': {
+      id: '/pokemon'
+      path: '/pokemon'
+      fullPath: '/pokemon'
+      preLoaderRoute: typeof PokemonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favourite': {
+      id: '/favourite'
+      path: '/favourite'
+      fullPath: '/favourite'
+      preLoaderRoute: typeof FavouriteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -261,6 +301,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  FavouriteRoute: FavouriteRoute,
+  PokemonRoute: PokemonRoute,
   FallbacksAnalyticsRoute: FallbacksAnalyticsRoute,
   LoaderDepsEmployeesRoute: LoaderDepsEmployeesRoute,
   StreamingSsrProductRoute: StreamingSsrProductRoute,
